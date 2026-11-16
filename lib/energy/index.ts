@@ -1,0 +1,7 @@
+export interface EnergyInput {sleepW:number;receiveW:number;transmitW:number;receiveFraction:number;transmitFraction:number;panelW:number;sunHours:number;solarDerating:number;batteryWh:number;temperatureCapacity:number;usableFraction:number;users:number;radios:number;radioCost:number;relayCost:number;relays:number;}
+export const DEFAULT_ENERGY:EnergyInput={sleepW:.001,receiveW:.05,transmitW:.4,receiveFraction:.95,transmitFraction:.01,panelW:10,sunHours:5,solarDerating:.55,batteryWh:12,temperatureCapacity:.8,usableFraction:.8,users:12,radios:12,radioCost:60,relayCost:180,relays:2};
+export function calculateEnergy(i:EnergyInput){
+  if(Object.values(i).some(v=>!Number.isFinite(v)||v<0)||i.receiveFraction+i.transmitFraction>1||i.solarDerating>1||i.temperatureCapacity>1||i.usableFraction>1||i.users<1||i.sunHours>24)throw new Error('Energy inputs must be finite, nonnegative, with fractions in 0–1, a valid activity budget, and at least one user.');
+  const sleepFraction=Math.max(0,1-i.receiveFraction-i.transmitFraction),dailyWh=24*(i.sleepW*sleepFraction+i.receiveW*i.receiveFraction+i.transmitW*i.transmitFraction),solarWh=i.panelW*i.sunHours*i.solarDerating,usableWh=i.batteryWh*i.temperatureCapacity*i.usableFraction,capitalCost=i.radios*i.radioCost+i.relays*i.relayCost;
+  return {sleepFraction,dailyWh,solarWh,usableWh,autonomyDays:dailyWh>0?usableWh/dailyWh:0,capitalCost,costPerUser:capitalCost/Math.max(1,i.users),annualMaintenance:capitalCost*.15,netDailyWh:solarWh-dailyWh};
+}

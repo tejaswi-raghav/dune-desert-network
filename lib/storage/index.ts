@@ -1,0 +1,4 @@
+const DB='dune-simulator-v1',STORE='snapshots';
+function openDB():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>req.result.createObjectStore(STORE);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+export async function saveSnapshot(json:string){const db=await openDB();try{await new Promise<void>((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(json,'latest');tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});}finally{db.close();}}
+export async function loadSnapshot():Promise<string|null>{const db=await openDB();try{return await new Promise((resolve,reject)=>{const req=db.transaction(STORE).objectStore(STORE).get('latest');req.onsuccess=()=>resolve(req.result??null);req.onerror=()=>reject(req.error);});}finally{db.close();}}
