@@ -33,3 +33,6 @@ describe('DUNE deterministic domain engine',()=>{
  it('compares actual reproducible repeated trials',()=>{const a=comparePolicies(3),b=comparePolicies(3);expect(a).toEqual(b);expect(a.map(x=>x.policy)).toEqual(['flooding','constrained','dune']);expect(a.every(x=>x.deliveryCI[0]<=x.deliveryRate&&x.deliveryCI[1]>=x.deliveryRate)).toBe(true);});
  it('comparison includes at least one successful SOS rather than dropped source packets',()=>{const result=comparePolicies(12);expect(result.some(r=>r.emergencyDeliveryRate>0)).toBe(true);});
 });
+
+
+it('rejects a source addressed to itself',()=>{const sim=new Simulation(createScenario('success'));expect(()=>sim.send({source:'worker',destination:'worker',payload:'self'})).toThrow(/different recipient/);});

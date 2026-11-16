@@ -81,3 +81,20 @@ test('paused manual changes persist across reload',async({page})=>{
  await expect(page.getByLabel('Replay timeline',{exact:true})).toHaveValue('10');
  await expect(page.locator('.packet-summary .status-text')).toContainText('UNDELIVERED');
 });
+
+test('base replies to worker as a separately addressed simulated device',async({page})=>{
+ await page.goto('/mission-control?scenario=success');
+ await expect(page.getByLabel('Scenario',{exact:true})).toHaveValue('success');
+ await page.getByLabel('Replay timeline',{exact:true}).press('End');
+ await page.getByRole('button',{name:'New packet',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'Create simulated packet'});
+ await dialog.getByLabel('Sender',{exact:true}).selectOption('base');
+ await dialog.getByLabel('Recipient',{exact:true}).selectOption('worker');
+ await dialog.getByLabel('Packet type',{exact:true}).selectOption('TEXT');
+ await dialog.getByLabel('Message · up to 176 UTF-8 bytes',{exact:true}).fill('Received. Stay at waypoint D-17.');
+ await dialog.getByRole('button',{name:'Queue packet',exact:true}).click();
+ await page.getByRole('button',{name:'+10s',exact:true}).click();
+ await page.getByLabel('Inspect packet',{exact:true}).selectOption('PKT-0003');
+ await expect(page.locator('.packet-summary')).toContainText('base → worker');
+ await expect(page.locator('.packet-summary .status-text')).toContainText('ACKNOWLEDGED');
+});

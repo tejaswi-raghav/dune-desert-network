@@ -30,6 +30,7 @@ export class Simulation {
   private create(input:Omit<SendInput,'type'>&{type:PacketType;ackFor?:string}):Packet {
     if(this.packets.length>=10000)throw new Error('Demo packet limit reached. Export and reset the scenario.');
     const source=this.node(input.source);this.node(input.destination);
+    if(input.source===input.destination)throw new Error("Choose a different recipient from the sender.");
     if(!input.payload.trim())throw new Error('A message is required.');
     const size=new TextEncoder().encode(input.payload).length+24;
     if(size>200)throw new Error('Payload exceeds 176 UTF-8 bytes (200 including modeled header).');
