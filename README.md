@@ -8,12 +8,12 @@ DUNE is an offline-first, deterministic network simulator for remote field crews
 
 **This is a browser simulation, not operational radio infrastructure.** It does not transmit LoRa, contact emergency services, guarantee delivery or provide safety certification. Devices are independently modeled software nodes inside one simulation. Phones would need external approved radio hardware for real LoRa. No hardware or desert field test has been completed.
 
-## Publication status
+## Verified publication
 
-- **GitHub:** publication is pending automatic approval review. No verified public repository URL is available at this documentation revision.
-- **Vercel:** production publication is pending automatic approval review. No verified live application URL is available at this documentation revision.
+- **Public GitHub repository:** https://github.com/tejaswi-raghav/dune-desert-network
+- **Public Vercel production:** https://dune-desert-network.vercel.app
 
-An authenticated account check or a local build is not evidence of successful publication. Replace these statements only after actual remote files and live routes have been verified. The final project report records any later successful deployment or precise blocker.
+The project is connected to GitHub; pushes to `main` trigger Vercel production builds. The browser simulator runs locally without a backend. Verification details and limits are recorded in [docs/TEST_REPORT.md](docs/TEST_REPORT.md).
 
 ## Run locally
 
@@ -108,6 +108,6 @@ Advance in four gates: browser/lab packet tests → **authorized 2–4 radio tes
 
 ## Pitch and project evidence
 
-The requested editable deck is `pitch/DUNE_Desert_Emergency_Network.pptx` when generated. Presenter notes and source notes are embedded; real screenshots and URL/QR verification must correspond to an actual tested deployment. See `pitch/` for pitch, abstract and run-of-show files. Availability and completion are stated in the final report; no missing artifact or URL is implied to exist by this target filename.
+The editable seven-slide deck is [pitch/DUNE_Desert_Emergency_Network.pptx](pitch/DUNE_Desert_Emergency_Network.pptx). Presenter and source notes are embedded. Slide 5 uses actual application screenshots and a QR code for the verified live URL. The one-page abstract is available as PDF and Markdown; pitch and exact UI actions are in `pitch/THREE_MINUTE_PITCH.md` and `pitch/DEMO_RUN_OF_SHOW.md`. Rebuild with `DUNE_LIVE_URL=https://dune-desert-network.vercel.app node scripts/build-pitch.cjs`; screenshots must exist first.
 
 License: MIT. DUNE is an independent hackathon prototype, without a safety warranty, emergency SLA or promise of rescue.

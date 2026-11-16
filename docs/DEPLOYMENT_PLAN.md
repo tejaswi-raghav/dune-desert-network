@@ -30,3 +30,8 @@ Use source-controlled lockfile and reproducible build, public repository without
 ## Pilot resource estimate
 
 The illustrative 20-user hardware allowance is $2,560 before spares, and excludes phones, staff, vehicles, backhaul, certification and fieldwork; details and source anchors are in [HARDWARE_BOM.md](HARDWARE_BOM.md). Obtain procurement and compliance quotes before funding a pilot. Assign named responsibility for charging, panel cleaning, spares, firmware updates and incident review. No budget estimate implies hardware qualification.
+
+
+## Verified web deployment - 16 November 2026
+
+Public source: https://github.com/tejaswi-raghav/dune-desert-network . Production simulator: https://dune-desert-network.vercel.app . GitHub `main` is linked to the new Vercel project `dune-desert-network` in team `vo1d`, using Node24. Public access was explicitly approved by the user. No production secrets, backend database, radio gateway or emergency-service endpoint is configured. See TEST_REPORT for final build/browser evidence. This web deployment completes Stage1 software availability only; it does not satisfy hardware/RF validation gates.

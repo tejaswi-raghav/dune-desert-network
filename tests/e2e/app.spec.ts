@@ -39,6 +39,10 @@ test('pause, keyboard controls and export preserve actual packet trace',async({p
  const stream=await download.createReadStream();let json='';for await(const chunk of stream!)json+=chunk.toString();
  const saved=JSON.parse(json);expect(saved.version).toBe(1);expect(saved.packets.some((p:{status:string})=>p.status==='ACKNOWLEDGED')).toBe(true);
  expect(saved.events.some((e:{type:string})=>e.type==='LINK_ACK')).toBe(true);
+ await page.getByLabel('Scenario',{exact:true}).selectOption('partition');
+ await page.locator('input[type=file]').setInputFiles({name:'replay.json',mimeType:'application/json',buffer:Buffer.from(json)});
+ await expect(page.locator('.packet-summary .status-text')).toContainText('ACKNOWLEDGED');
+ await expect(page.getByText(/Snapshot imported/)).toBeVisible();
 });
 
 test('device UI labels demo and queues a simulated SOS',async({page})=>{
@@ -65,4 +69,15 @@ test('mobile and desktop have no horizontal document overflow',async({page})=>{
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
   expect(overflow,route).toBeLessThanOrEqual(2);
  }
+});
+
+
+test('paused manual changes persist across reload',async({page})=>{
+ await page.goto('/mission-control?scenario=partition');
+ await page.getByRole('button',{name:'+10s',exact:true}).click();
+ await expect.poll(()=>page.evaluate(async()=>new Promise<number>((resolve,reject)=>{const request=indexedDB.open('dune-simulator-v1',1);request.onsuccess=()=>{const db=request.result;const r=db.transaction('snapshots').objectStore('snapshots').get('latest');r.onsuccess=()=>{db.close();resolve(r.result?JSON.parse(r.result).time:-1)};r.onerror=()=>reject(r.error)};request.onerror=()=>reject(request.error)}))).toBe(10);
+ await page.goto('/mission-control');
+ await expect(page.getByLabel('Scenario',{exact:true})).toHaveValue('partition');
+ await expect(page.getByLabel('Replay timeline',{exact:true})).toHaveValue('10');
+ await expect(page.locator('.packet-summary .status-text')).toContainText('UNDELIVERED');
 });

@@ -28,7 +28,7 @@ s=base(2,'The communication gap');
 text(s,'A field crew loses contact\nbeyond mobile coverage',.6,2.2,7.8,1.35,38,C.ivory,true);
 text(s,'A worker needs help. The coordinator needs a location.\nA network partition can outlast a useful radio contact.',.6,4.0,8.1,1.1,23,C.muted);
 text(s,'POWER  ·  HEAT  ·  DUST  ·  DISTANCE  ·  COST',.6,6.2,11.8,.4,17,C.sand,true,{charSpacing:1.3});
-circle(s,10.4,2.8,.52,C.coral,'A','Field crew');circle(s,10.4,5.1,.52,C.sand,'B','Rescue base');line(s,10.4,3.7,10.4,4.2,C.coral,2,{dash:'dash'});
+circle(s,10.4,2.8,.52,C.coral,'A','Field crew');circle(s,10.4,5.1,.52,C.sand,'B','Rescue base');line(s,10.4,4.2,10.4,4.5,C.coral,2,{dash:'dash'});
 notes(s,'0:20–0:40. Consider a remote field crew. A worker is injured after leaving mobile coverage. A useful message is small: who, what, where, and urgency. The challenge is getting that message across a broken network while power, heat, dust and budget constrain every device. We use a synthetic scenario and invent no mortality statistics.','User-defined remote crew scenario. Environmental considerations: https://www.ti.com/lit/an/slyt365/slyt365.pdf and https://www.iec.ch/ip-ratings (see research).');
 //3
 s=base(3,'A network that can wait, then move');
