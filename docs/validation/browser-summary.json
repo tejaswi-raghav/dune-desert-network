@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-16",
+  "baseURL": "https://dune-desert-network.vercel.app",
+  "testedApplicationCommit": "dd4c1f61e5a939b898b9ea5183461aae6e16fdab",
+  "total": 18,
+  "passed": 18,
+  "failed": 0,
+  "stats": {
+    "startTime": "2026-11-16T08:54:18.512Z",
+    "duration": 43479.933,
+    "expected": 18,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    {
+      "test": "landing explains simulation and opens mission control",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2352
+    },
+    {
+      "test": "landing explains simulation and opens mission control",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 1938
+    },
+    {
+      "test": "scenarios demonstrate delivery, retries, partition, carriage and depletion",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2585
+    },
+    {
+      "test": "scenarios demonstrate delivery, retries, partition, carriage and depletion",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 1854
+    },
+    {
+      "test": "pause, keyboard controls and export preserve actual packet trace",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2050
+    },
+    {
+      "test": "pause, keyboard controls and export preserve actual packet trace",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 1911
+    },
+    {
+      "test": "device UI labels demo and queues a simulated SOS",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2192
+    },
+    {
+      "test": "device UI labels demo and queues a simulated SOS",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 1732
+    },
+    {
+      "test": "engineering inputs and resilience experiments work without fabricated metrics",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2064
+    },
+    {
+      "test": "engineering inputs and resilience experiments work without fabricated metrics",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 2325
+    },
+    {
+      "test": "mobile and desktop have no horizontal document overflow",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2510
+    },
+    {
+      "test": "mobile and desktop have no horizontal document overflow",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 2345
+    },
+    {
+      "test": "paused manual changes persist across reload",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 2471
+    },
+    {
+      "test": "paused manual changes persist across reload",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 2644
+    },
+    {
+      "test": "base replies to worker as a separately addressed simulated device",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 1929
+    },
+    {
+      "test": "base replies to worker as a separately addressed simulated device",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 2226
+    },
+    {
+      "test": "cached mission shell reloads offline and sends simulated packets",
+      "project": "desktop",
+      "status": "passed",
+      "durationMs": 3099
+    },
+    {
+      "test": "cached mission shell reloads offline and sends simulated packets",
+      "project": "mobile",
+      "status": "passed",
+      "durationMs": 2702
+    }
+  ]
+}

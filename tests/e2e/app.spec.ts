@@ -75,7 +75,7 @@ test('mobile and desktop have no horizontal document overflow',async({page})=>{
 test('paused manual changes persist across reload',async({page})=>{
  await page.goto('/mission-control?scenario=partition');
  await page.getByRole('button',{name:'+10s',exact:true}).click();
- await expect.poll(()=>page.evaluate(async()=>new Promise<number>((resolve,reject)=>{const request=indexedDB.open('dune-simulator-v1',1);request.onsuccess=()=>{const db=request.result;const r=db.transaction('snapshots').objectStore('snapshots').get('latest');r.onsuccess=()=>{db.close();resolve(r.result?JSON.parse(r.result).time:-1)};r.onerror=()=>reject(r.error)};request.onerror=()=>reject(request.error)}))).toBe(10);
+ await expect.poll(()=>page.evaluate(async()=>{const existing=await indexedDB.databases();if(!existing.some(db=>db.name==='dune-simulator-v1'))return -1;return new Promise<number>((resolve,reject)=>{const request=indexedDB.open('dune-simulator-v1',1);request.onsuccess=()=>{const db=request.result;const r=db.transaction('snapshots').objectStore('snapshots').get('latest');r.onsuccess=()=>{db.close();resolve(r.result?JSON.parse(r.result).time:-1)};r.onerror=()=>reject(r.error)};request.onerror=()=>reject(request.error)})})).toBe(10);
  await page.goto('/mission-control');
  await expect(page.getByLabel('Scenario',{exact:true})).toHaveValue('partition');
  await expect(page.getByLabel('Replay timeline',{exact:true})).toHaveValue('10');
@@ -88,10 +88,10 @@ test('base replies to worker as a separately addressed simulated device',async({
  await page.getByLabel('Replay timeline',{exact:true}).press('End');
  await page.getByRole('button',{name:'New packet',exact:true}).click();
  const dialog=page.getByRole('dialog',{name:'Create simulated packet'});
- await dialog.getByLabel('Sender',{exact:true}).selectOption('base');
- await dialog.getByLabel('Recipient',{exact:true}).selectOption('worker');
- await dialog.getByLabel('Packet type',{exact:true}).selectOption('TEXT');
- await dialog.getByLabel('Message · up to 176 UTF-8 bytes',{exact:true}).fill('Received. Stay at waypoint D-17.');
+ await dialog.getByRole('combobox',{name:'Sender',exact:true}).selectOption('base');
+ await dialog.getByRole('combobox',{name:'Recipient',exact:true}).selectOption('worker');
+ await dialog.getByRole('combobox',{name:'Packet type',exact:true}).selectOption('TEXT');
+ await dialog.getByRole('textbox',{name:'Message · up to 176 UTF-8 bytes',exact:true}).fill('Received. Stay at waypoint D-17.');
  await dialog.getByRole('button',{name:'Queue packet',exact:true}).click();
  await page.getByRole('button',{name:'+10s',exact:true}).click();
  await page.getByLabel('Inspect packet',{exact:true}).selectOption('PKT-0003');

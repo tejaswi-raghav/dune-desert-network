@@ -71,6 +71,7 @@ text(s,'Execution 15% · Demo 10%\nTargets for a pilot: delivery by priority, p9
 text(s,'Connectivity should not end\nwhere infrastructure does.',.65,5.9,11.9,1.0,32,C.ivory,true);
 notes(s,'2:30–3:00. DUNE is strongest where a permanent connection is unavailable but a future contact is plausible. We can show where it works, where it retries, and where it fails. The roadmap is simulation, authorized radio bench tests, one-relay field test, and a trained-crew pilot. Judge us on measurable packet delivery, delay, energy use and returned acknowledgements. Connectivity should not end where infrastructure does.','Judging weights supplied by user. Pilot metrics are proposed success criteria; no field benchmarks claimed.');
 await pptx.writeFile({fileName:path.join(out,'DUNE_Desert_Emergency_Network.pptx')});
+const repair=require('node:child_process').spawnSync('python3',[path.join(root,'scripts/repair-pptx.py'),path.join(out,'DUNE_Desert_Emergency_Network.pptx')],{stdio:'inherit'});if(repair.status!==0)throw new Error('Package normalization failed');
 console.log('Wrote exactly 7 editable slides. Live URL: '+(live||'not available; visibly disclosed'));
 }
 main().catch(e=>{console.error(e);process.exit(1)});
